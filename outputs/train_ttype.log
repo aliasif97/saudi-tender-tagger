@@ -1,0 +1,28 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 43411.17it/s]
+[transformers] [1mBertForSequenceClassification LOAD REPORT[0m from: UBC-NLP/MARBERTv2
+Key                                        | Status     | 
+-------------------------------------------+------------+-
+cls.predictions.decoder.bias               | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED | 
+cls.predictions.decoder.weight             | UNEXPECTED | 
+cls.seq_relationship.weight                | UNEXPECTED | 
+cls.seq_relationship.bias                  | UNEXPECTED | 
+cls.predictions.bias                       | UNEXPECTED | 
+cls.predictions.transform.dense.bias       | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED | 
+cls.predictions.transform.dense.weight     | UNEXPECTED | 
+classifier.bias                            | MISSING    | 
+classifier.weight                          | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+epoch 1 train_loss_sum=133.5 val_macroF1=0.6376 elapsed=145s
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  5.23it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  5.23it/s]
+epoch 2 train_loss_sum=70.0 val_macroF1=0.6149 elapsed=291s
+epoch 3 train_loss_sum=45.2 val_macroF1=0.8825 elapsed=436s
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  2.27it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  2.26it/s]
+epoch 4 train_loss_sum=27.9 val_macroF1=0.8692 elapsed=578s
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 10630.94it/s]
+{'label': 'ttype', 'base_model': 'UBC-NLP/MARBERTv2', 'device': 'mps', 'accuracy': 0.8822412155745489, 'macro_f1': 0.8193560927339553, 'best_val_macro_f1': 0.8825149461937026, 'epochs_run': 4, 'history': [(1, 133.48, 0.6376), (2, 69.99, 0.6149), (3, 45.22, 0.8825), (4, 27.92, 0.8692)], 'train_seconds': 578.1, 'n_classes': 5, 'size_mb': 654.1}

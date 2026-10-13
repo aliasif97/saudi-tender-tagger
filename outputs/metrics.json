@@ -1,0 +1,66 @@
+{
+ "activity": {
+  "baseline": {
+   "accuracy": 0.6125,
+   "macro_f1": 0.3542,
+   "accuracy_novel_titles": 0.6039
+  },
+  "encoder": {
+   "accuracy": 0.6173,
+   "macro_f1": 0.4339,
+   "accuracy_novel_titles": 0.6097
+  },
+  "ships": "encoder"
+ },
+ "ttype": {
+  "baseline": {
+   "accuracy": 0.8794,
+   "macro_f1": 0.8321,
+   "accuracy_novel_titles": 0.8767
+  },
+  "encoder": {
+   "accuracy": 0.8822,
+   "macro_f1": 0.8194,
+   "accuracy_novel_titles": 0.8796
+  },
+  "ships": "baseline"
+ },
+ "sector_derived": {
+  "baseline": {
+   "accuracy": 0.6572,
+   "macro_f1": 0.4917
+  },
+  "encoder": {
+   "accuracy": 0.699,
+   "macro_f1": 0.6124
+  }
+ },
+ "kind_derived": {
+  "baseline": {
+   "accuracy": 0.8927,
+   "macro_f1": 0.8675
+  },
+  "encoder": {
+   "accuracy": 0.8908,
+   "macro_f1": 0.872
+  }
+ },
+ "baseline_direct_sector_and_kind": {
+  "sector": {
+   "C": 50,
+   "accuracy": 0.6837606837606838,
+   "macro_f1": 0.5351606204338909,
+   "seconds": 39.7,
+   "n_classes": 19
+  },
+  "kind": {
+   "C": 10,
+   "accuracy": 0.8746438746438746,
+   "macro_f1": 0.8349819553257949,
+   "seconds": 6.6,
+   "n_classes": 3
+  }
+ },
+ "test_n": 1053,
+ "test_novel_title_n": 1030
+}

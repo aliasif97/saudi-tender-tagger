@@ -1,0 +1,19 @@
+{
+ "name": "saudi-tender-tagger",
+ "input": "title + ' | ' + agency",
+ "max_length": 128,
+ "heads": {
+  "activity": {
+   "type": "encoder",
+   "path": "activity_encoder"
+  },
+  "ttype": {
+   "type": "tfidf",
+   "path": "ttype_tfidf"
+  }
+ },
+ "derived": {
+  "sector": "labels/activity_to_sector.json",
+  "kind": "labels/activity_to_kind.json + rules in scripts/common.py"
+ }
+}

@@ -1,0 +1,146 @@
+{
+ "total": 7016,
+ "train": 5963,
+ "test": 1053,
+ "activity_classes_raw": 111,
+ "activity_classes_after_collapse": 54,
+ "rare_activities_collapsed": 58,
+ "rows_in_collapsed_activities": 135,
+ "ttype_classes_raw": 5,
+ "ttype_rare_collapsed": 1,
+ "ttype_rows_collapsed": 1,
+ "test_rows_with_exact_title_agency_in_train": 23,
+ "unmapped_activities_to_other": [],
+ "sector_counts": [
+  [
+   "vehicles_spare_parts",
+   1427
+  ],
+  [
+   "maintenance_operation",
+   746
+  ],
+  [
+   "it_software",
+   713
+  ],
+  [
+   "building_materials_electrical",
+   692
+  ],
+  [
+   "construction_works",
+   632
+  ],
+  [
+   "equipment_machinery",
+   548
+  ],
+  [
+   "furniture_consumer_goods",
+   536
+  ],
+  [
+   "medical",
+   425
+  ],
+  [
+   "media_events",
+   337
+  ],
+  [
+   "consulting_professional",
+   158
+  ],
+  [
+   "energy_chemicals",
+   142
+  ],
+  [
+   "telecom",
+   128
+  ],
+  [
+   "security_safety",
+   117
+  ],
+  [
+   "agriculture_environment",
+   88
+  ],
+  [
+   "food_catering",
+   83
+  ],
+  [
+   "finance_insurance_property",
+   77
+  ],
+  [
+   "education_training",
+   70
+  ],
+  [
+   "logistics_transport",
+   67
+  ],
+  [
+   "other",
+   30
+  ]
+ ],
+ "kind_counts": [
+  [
+   "supply",
+   3821
+  ],
+  [
+   "services",
+   2279
+  ],
+  [
+   "works",
+   916
+  ]
+ ],
+ "ttype_counts": [
+  [
+   "شراء مباشر",
+   3536
+  ],
+  [
+   "منافسة عامة",
+   3378
+  ],
+  [
+   "منافسة إتفاقية إطارية",
+   89
+  ],
+  [
+   "المنافسة على مرحلتين (المرحلة الاولى)",
+   12
+  ],
+  [
+   "other",
+   1
+  ]
+ ],
+ "source_counts": [
+  [
+   "crawl",
+   6102
+  ],
+  [
+   "awards-db+awarded-xlsx",
+   475
+  ],
+  [
+   "awards-db",
+   334
+  ],
+  [
+   "crawl+last-scan",
+   105
+  ]
+ ]
+}

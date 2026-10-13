@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+# raw crawl cache (re-creatable with scripts/crawl.py); kept out of git
+data/raw/
+# training checkpoints and optimizer state
+checkpoints/
+**/checkpoint-*/
+*.pt
+*.bin
+# trained weights are large; they go to the Hub with push_to_hub.py, not to git
+*.safetensors
+data/tenders_all.csv
+data/tenders_base.csv
+.env
+.DS_Store

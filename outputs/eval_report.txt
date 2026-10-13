@@ -1,0 +1,111 @@
+{
+ "activity": {
+  "baseline": {
+   "accuracy": 0.6125,
+   "macro_f1": 0.3542,
+   "accuracy_novel_titles": 0.6039
+  },
+  "encoder": {
+   "accuracy": 0.6173,
+   "macro_f1": 0.4339,
+   "accuracy_novel_titles": 0.6097
+  },
+  "ships": "encoder"
+ },
+ "ttype": {
+  "baseline": {
+   "accuracy": 0.8794,
+   "macro_f1": 0.8321,
+   "accuracy_novel_titles": 0.8767
+  },
+  "encoder": {
+   "accuracy": 0.8822,
+   "macro_f1": 0.8194,
+   "accuracy_novel_titles": 0.8796
+  },
+  "ships": "baseline"
+ },
+ "sector_derived": {
+  "baseline": {
+   "accuracy": 0.6572,
+   "macro_f1": 0.4917
+  },
+  "encoder": {
+   "accuracy": 0.699,
+   "macro_f1": 0.6124
+  }
+ },
+ "kind_derived": {
+  "baseline": {
+   "accuracy": 0.8927,
+   "macro_f1": 0.8675
+  },
+  "encoder": {
+   "accuracy": 0.8908,
+   "macro_f1": 0.872
+  }
+ },
+ "baseline_direct_sector_and_kind": {
+  "sector": {
+   "C": 50,
+   "accuracy": 0.6837606837606838,
+   "macro_f1": 0.5351606204338909,
+   "seconds": 39.7,
+   "n_classes": 19
+  },
+  "kind": {
+   "C": 10,
+   "accuracy": 0.8746438746438746,
+   "macro_f1": 0.8349819553257949,
+   "seconds": 6.6,
+   "n_classes": 3
+  }
+ },
+ "test_n": 1053,
+ "test_novel_title_n": 1030
+}
+
+[activity / baseline] {'accuracy': 0.6125, 'macro_f1': 0.3542, 'accuracy_novel_titles': 0.6039}
+  top confusions (true -> predicted, count):
+    تجارة قطع الغيار الجديدة -> تجارة الأدوات والآلات والأجهزة: 10
+    مقاولات الإنشاءات العامة (التشييد و بناء المرافق العامة) -> مقاولات عامة للمباني (الانشاء، الإصلاح، الهدم، الترميم): 8
+    تجارة الأدوات والآلات والأجهزة -> تقنية المعلومات: 7
+    الإتصالات -> تقنية المعلومات: 7
+    تجارة الأثاث المنزلي والمفروشات والستائر والسجاد -> تجارة الأدوات والآلات والأجهزة: 7
+    تجارة الأدوات والآلات والأجهزة -> تجارة قطع الغيار الجديدة: 6
+  weakest classes (support>=5): أنشطة التدريب F1=0.00 n=5; أنشطة التعليم F1=0.00 n=6; مقاولات فرعية تخصصية (أنشطة التشييد المتخصصة) F1=0.18 n=8; انشطة النقل والتخزين F1=0.18 n=8; انشطة الاستشارات الهندسية F1=0.22 n=7
+
+[activity / encoder] {'accuracy': 0.6173, 'macro_f1': 0.4339, 'accuracy_novel_titles': 0.6097}
+  top confusions (true -> predicted, count):
+    تجارة مواد البناء والأدوات الكهربائية والصحية -> تجارة الأدوات والآلات والأجهزة: 13
+    مقاولات الإنشاءات العامة (التشييد و بناء المرافق العامة) -> مقاولات عامة للمباني (الانشاء، الإصلاح، الهدم، الترميم): 12
+    الإتصالات -> تقنية المعلومات: 10
+    تجارة قطع الغيار الجديدة -> تجارة الأدوات والآلات والأجهزة: 9
+    تجارة الأدوات والآلات والأجهزة -> تجارة قطع الغيار الجديدة: 8
+    التشغيل والصيانة والنظافة للمنشآت -> خدمات صيانة واصلاح الأجهزة والمعدات والآلات: 8
+  weakest classes (support>=5): مقاولات فرعية تخصصية (أنشطة التشييد المتخصصة) F1=0.00 n=8; البترول F1=0.00 n=5; أنشطة التعليم F1=0.00 n=6; الإتصالات F1=0.31 n=19; other F1=0.32 n=20
+
+[ttype / baseline] {'accuracy': 0.8794, 'macro_f1': 0.8321, 'accuracy_novel_titles': 0.8767}
+  top confusions (true -> predicted, count):
+    منافسة عامة -> شراء مباشر: 61
+    شراء مباشر -> منافسة عامة: 58
+    منافسة إتفاقية إطارية -> منافسة عامة: 5
+    منافسة عامة -> منافسة إتفاقية إطارية: 2
+    منافسة إتفاقية إطارية -> شراء مباشر: 1
+  weakest classes (support>=5): منافسة إتفاقية إطارية F1=0.73 n=17; منافسة عامة F1=0.88 n=514; شراء مباشر F1=0.89 n=522
+
+[ttype / encoder] {'accuracy': 0.8822, 'macro_f1': 0.8194, 'accuracy_novel_titles': 0.8796}
+  top confusions (true -> predicted, count):
+    شراء مباشر -> منافسة عامة: 66
+    منافسة عامة -> شراء مباشر: 48
+    منافسة إتفاقية إطارية -> منافسة عامة: 6
+    منافسة عامة -> منافسة إتفاقية إطارية: 4
+  weakest classes (support>=5): منافسة إتفاقية إطارية F1=0.69 n=17; منافسة عامة F1=0.88 n=514; شراء مباشر F1=0.89 n=522
+
+[sector derived from predicted activity / baseline] {'accuracy': 0.6572, 'macro_f1': 0.4917}
+[kind rules on predicted activity+type / baseline] {'accuracy': 0.8927, 'macro_f1': 0.8675}
+  top sector confusions: furniture_consumer_goods->equipment_machinery:18; vehicles_spare_parts->equipment_machinery:14; construction_works->building_materials_electrical:11; construction_works->maintenance_operation:10; building_materials_electrical->construction_works:10
+
+[sector derived from predicted activity / encoder] {'accuracy': 0.699, 'macro_f1': 0.6124}
+[kind rules on predicted activity+type / encoder] {'accuracy': 0.8908, 'macro_f1': 0.872}
+  top sector confusions: furniture_consumer_goods->equipment_machinery:14; building_materials_electrical->equipment_machinery:13; equipment_machinery->building_materials_electrical:11; vehicles_spare_parts->equipment_machinery:11; equipment_machinery->vehicles_spare_parts:10

@@ -1,0 +1,30 @@
+{
+ "activity": {
+  "C": 50,
+  "accuracy": 0.6125356125356125,
+  "macro_f1": 0.3542344854450981,
+  "seconds": 119.3,
+  "n_classes": 54
+ },
+ "ttype": {
+  "C": 50,
+  "accuracy": 0.879392212725546,
+  "macro_f1": 0.8320871410514087,
+  "seconds": 7.4,
+  "n_classes": 5
+ },
+ "sector": {
+  "C": 50,
+  "accuracy": 0.6837606837606838,
+  "macro_f1": 0.5351606204338909,
+  "seconds": 39.7,
+  "n_classes": 19
+ },
+ "kind": {
+  "C": 10,
+  "accuracy": 0.8746438746438746,
+  "macro_f1": 0.8349819553257949,
+  "seconds": 6.6,
+  "n_classes": 3
+ }
+}
