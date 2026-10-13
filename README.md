@@ -20,7 +20,7 @@ metrics:
 
 # saudi-tender-tagger
 
-**Try it:** https://huggingface.co/spaces/chaliasif/saudi-tender-tagger
+**Try it locally:** `python predict.py --title "..." --agency "..."` (a hosted demo is planned).
 
 Reads the Arabic title of a Saudi government tender (and the issuing agency) and predicts the Etimad activity category and the procurement type. It also gives a coarse sector and a supply / works / services label, both derived from the predicted activity.
 
