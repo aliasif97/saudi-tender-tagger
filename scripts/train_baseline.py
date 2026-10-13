@@ -32,7 +32,7 @@ for name, col in LABELS.items():
     res[name] = {"C": best, "accuracy": accuracy_score(te[col], yp), "macro_f1": f1_score(te[col], yp, average="macro"),
                  "seconds": round(time.time() - t0, 1), "n_classes": int(tr[col].nunique())}
     pd.DataFrame({"ref": te.ref, "true": te[col], "pred": yp}).to_csv(f"{ROOT}/outputs/pred_baseline_{name}.csv", index=False)
-    if name in ("activity", "ttype"):
+    if name in ("activity", "ttype", "sector"):
         os.makedirs(f"{ROOT}/models/saudi-tender-tagger/{name}_tfidf", exist_ok=True)
         joblib.dump(p, f"{ROOT}/models/saudi-tender-tagger/{name}_tfidf/model.joblib", compress=3)
     print(name, res[name], flush=True)

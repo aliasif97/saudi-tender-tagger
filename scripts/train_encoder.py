@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import train_test_split
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, get_linear_schedule_with_warmup
 sys.path.insert(0, os.path.dirname(__file__)); from common import *
-label, mname, out = sys.argv[1], sys.argv[2], sys.argv[3]; EPOCHS = int(sys.argv[4]) if len(sys.argv) > 4 else 6
+label, mname, out = sys.argv[1], sys.argv[2], sys.argv[3]; EPOCHS = int(sys.argv[4]) if len(sys.argv) > 4 else 6; PATIENCE = int(sys.argv[5]) if len(sys.argv) > 5 else 2
 COL = {"activity": "activity_label", "ttype": "ttype", "sector": "sector"}[label]
 random.seed(SEED); np.random.seed(SEED); torch.manual_seed(SEED)
 dev = "mps" if torch.backends.mps.is_available() else "cpu"
@@ -24,12 +24,13 @@ def batches(texts, ys, bs, shuffle):
     for i in range(0, len(idx), bs):
         j = idx[i:i + bs]; b = tok([texts[k] for k in j], truncation=True, max_length=128, padding=True, pad_to_multiple_of=32, return_tensors="pt")
         yield {k: v.to(dev) for k, v in b.items()}, torch.tensor([ys[k] for k in j]).to(dev)
-def predict(texts, ys):
-    model.eval(); P = []; 
+def predict(texts, ys, top3=False):
+    model.eval(); P = []; T = []
     with torch.no_grad():
-        for b, _ in batches(texts, ys, 64, False): P += model(**b).logits.argmax(-1).cpu().tolist()
+        for b, _ in batches(texts, ys, 64, False):
+            lg = model(**b).logits; P += lg.argmax(-1).cpu().tolist(); T += lg.topk(min(3, lg.shape[-1]), -1).indices.cpu().tolist()
     if dev == "mps": torch.mps.empty_cache()
-    return P
+    return (P, T) if top3 else P
 Xt, yt = enc(tr_); Xv, yv = enc(va); Xe, ye = enc(te)
 cnt = np.bincount(yt, minlength=len(classes)).astype(float); w = torch.tensor((cnt.max() / np.maximum(cnt, 1)) ** 0.5, dtype=torch.float).to(dev)
 BS = 32; steps = EPOCHS * ((len(Xt) + BS - 1) // BS)
@@ -47,12 +48,12 @@ for ep in range(EPOCHS):
     if f1v > best: best, bad = f1v, 0; model.save_pretrained(out); tok.save_pretrained(out)
     else:
         bad += 1
-        if bad >= 2: print("early stop"); break
+        if bad >= PATIENCE: print("early stop"); break
 train_s = time.time() - t0
 model = AutoModelForSequenceClassification.from_pretrained(out).to(dev)
-yp = predict(Xe, ye)
+yp, t3 = predict(Xe, ye, True); top3 = float(np.mean([y in t for y, t in zip(ye, t3)]))
 res = {"label": label, "base_model": mname, "device": dev, "accuracy": accuracy_score(ye, yp), "macro_f1": f1_score(ye, yp, average="macro"),
-       "best_val_macro_f1": best, "epochs_run": len(hist), "history": hist, "train_seconds": round(train_s, 1), "n_classes": len(classes),
+       "top3_accuracy": top3, "best_val_macro_f1": best, "patience": PATIENCE, "max_epochs": EPOCHS, "epochs_run": len(hist), "history": hist, "train_seconds": round(train_s, 1), "n_classes": len(classes),
        "size_mb": round(sum(os.path.getsize(os.path.join(out, f)) for f in os.listdir(out)) / 1e6, 1)}
 json.dump(res, open(f"{ROOT}/outputs/encoder_{label}_metrics.json", "w"), indent=1)
 pd.DataFrame({"ref": te.ref, "true": [classes[i] for i in ye], "pred": [classes[i] for i in yp]}).to_csv(f"{ROOT}/outputs/pred_encoder_{label}.csv", index=False)

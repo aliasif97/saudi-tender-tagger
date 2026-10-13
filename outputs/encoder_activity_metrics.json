@@ -1,44 +1,17 @@
 {
  "label": "activity",
- "base_model": "UBC-NLP/MARBERTv2",
+ "base_model": "CAMeL-Lab/bert-base-arabic-camelbert-mix",
  "device": "mps",
- "accuracy": 0.6172839506172839,
- "macro_f1": 0.4339482132314842,
- "best_val_macro_f1": 0.42331348179961337,
- "epochs_run": 6,
- "history": [
-  [
-   1,
-   590.65,
-   0.1484
-  ],
-  [
-   2,
-   431.36,
-   0.2262
-  ],
-  [
-   3,
-   333.54,
-   0.3336
-  ],
-  [
-   4,
-   263.8,
-   0.361
-  ],
-  [
-   5,
-   215.53,
-   0.4171
-  ],
-  [
-   6,
-   187.17,
-   0.4233
-  ]
- ],
- "train_seconds": 875.5,
+ "accuracy": 0.610636277302944,
+ "macro_f1": 0.43421263955429307,
+ "top3_accuracy": 0.8043684710351378,
+ "best_val_macro_f1": 0.4045,
+ "epochs_run": 5,
+ "max_epochs": 14,
+ "patience": 3,
+ "train_seconds": 3400,
  "n_classes": 54,
- "size_mb": 654.3
+ "stopped_by": "time cap",
+ "size_mb": 437.3,
+ "note": "Run stopped by the time cap after 5 of up to 14 epochs (about 57 min wall clock, machine was stalled for long stretches); best validation checkpoint (epoch 5) was evaluated."
 }

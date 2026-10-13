@@ -3,12 +3,15 @@
   "baseline": {
    "accuracy": 0.6125,
    "macro_f1": 0.3542,
-   "accuracy_novel_titles": 0.6039
+   "accuracy_novel_titles": 0.6039,
+   "top3_accuracy": 0.7987
   },
   "encoder": {
-   "accuracy": 0.6173,
-   "macro_f1": 0.4339,
-   "accuracy_novel_titles": 0.6097
+   "accuracy": 0.6106,
+   "macro_f1": 0.4342,
+   "accuracy_novel_titles": 0.6029,
+   "top3_accuracy": 0.8044,
+   "base_model": "CAMeL-Lab/bert-base-arabic-camelbert-mix"
   },
   "ships": "encoder"
  },
@@ -31,8 +34,8 @@
    "macro_f1": 0.4917
   },
   "encoder": {
-   "accuracy": 0.699,
-   "macro_f1": 0.6124
+   "accuracy": 0.6895,
+   "macro_f1": 0.6073
   }
  },
  "kind_derived": {
@@ -41,10 +44,25 @@
    "macro_f1": 0.8675
   },
   "encoder": {
-   "accuracy": 0.8908,
-   "macro_f1": 0.872
+   "accuracy": 0.8822,
+   "macro_f1": 0.86
   }
  },
+ "activity_marbertv2_6ep_not_shipped": {
+  "accuracy": 0.6173,
+  "macro_f1": 0.4339,
+  "top3_accuracy": 0.8101,
+  "reason": "base model has no stated license"
+ },
+ "sector_direct_tfidf": {
+  "accuracy": 0.6838,
+  "macro_f1": 0.5352
+ },
+ "sector_derived_from_shipped_activity": {
+  "accuracy": 0.6895,
+  "macro_f1": 0.6073
+ },
+ "sector_route": "derived",
  "baseline_direct_sector_and_kind": {
   "sector": {
    "C": 50,
@@ -75,15 +93,15 @@
     تجارة الأدوات والآلات والأجهزة -> تجارة قطع الغيار الجديدة: 6
   weakest classes (support>=5): أنشطة التدريب F1=0.00 n=5; أنشطة التعليم F1=0.00 n=6; مقاولات فرعية تخصصية (أنشطة التشييد المتخصصة) F1=0.18 n=8; انشطة النقل والتخزين F1=0.18 n=8; انشطة الاستشارات الهندسية F1=0.22 n=7
 
-[activity / encoder] {'accuracy': 0.6173, 'macro_f1': 0.4339, 'accuracy_novel_titles': 0.6097}
+[activity / encoder] {'accuracy': 0.6106, 'macro_f1': 0.4342, 'accuracy_novel_titles': 0.6029}
   top confusions (true -> predicted, count):
-    تجارة مواد البناء والأدوات الكهربائية والصحية -> تجارة الأدوات والآلات والأجهزة: 13
-    مقاولات الإنشاءات العامة (التشييد و بناء المرافق العامة) -> مقاولات عامة للمباني (الانشاء، الإصلاح، الهدم، الترميم): 12
-    الإتصالات -> تقنية المعلومات: 10
+    مقاولات عامة للمباني (الانشاء، الإصلاح، الهدم، الترميم) -> مقاولات الإنشاءات العامة (التشييد و بناء المرافق العامة): 14
     تجارة قطع الغيار الجديدة -> تجارة الأدوات والآلات والأجهزة: 9
-    تجارة الأدوات والآلات والأجهزة -> تجارة قطع الغيار الجديدة: 8
-    التشغيل والصيانة والنظافة للمنشآت -> خدمات صيانة واصلاح الأجهزة والمعدات والآلات: 8
-  weakest classes (support>=5): مقاولات فرعية تخصصية (أنشطة التشييد المتخصصة) F1=0.00 n=8; البترول F1=0.00 n=5; أنشطة التعليم F1=0.00 n=6; الإتصالات F1=0.31 n=19; other F1=0.32 n=20
+    مقاولات الإنشاءات العامة (التشييد و بناء المرافق العامة) -> مقاولات عامة للمباني (الانشاء، الإصلاح، الهدم، الترميم): 8
+    الإتصالات -> تقنية المعلومات: 7
+    تجارة الأدوات والآلات والأجهزة -> تجارة مواد البناء والأدوات الكهربائية والصحية: 7
+    تقنية المعلومات -> الإتصالات: 7
+  weakest classes (support>=5): مقاولات فرعية تخصصية (أنشطة التشييد المتخصصة) F1=0.00 n=8; أنشطة التعليم F1=0.00 n=6; البترول F1=0.00 n=5; خدمات محطات الوقود وخدمات المركبات الأخرى F1=0.29 n=6; الإتصالات F1=0.35 n=19
 
 [ttype / baseline] {'accuracy': 0.8794, 'macro_f1': 0.8321, 'accuracy_novel_titles': 0.8767}
   top confusions (true -> predicted, count):
@@ -106,6 +124,8 @@
 [kind rules on predicted activity+type / baseline] {'accuracy': 0.8927, 'macro_f1': 0.8675}
   top sector confusions: furniture_consumer_goods->equipment_machinery:18; vehicles_spare_parts->equipment_machinery:14; construction_works->building_materials_electrical:11; construction_works->maintenance_operation:10; building_materials_electrical->construction_works:10
 
-[sector derived from predicted activity / encoder] {'accuracy': 0.699, 'macro_f1': 0.6124}
-[kind rules on predicted activity+type / encoder] {'accuracy': 0.8908, 'macro_f1': 0.872}
-  top sector confusions: furniture_consumer_goods->equipment_machinery:14; building_materials_electrical->equipment_machinery:13; equipment_machinery->building_materials_electrical:11; vehicles_spare_parts->equipment_machinery:11; equipment_machinery->vehicles_spare_parts:10
+[sector derived from predicted activity / encoder] {'accuracy': 0.6895, 'macro_f1': 0.6073}
+[kind rules on predicted activity+type / encoder] {'accuracy': 0.8822, 'macro_f1': 0.86}
+  top sector confusions: vehicles_spare_parts->equipment_machinery:12; construction_works->building_materials_electrical:11; furniture_consumer_goods->equipment_machinery:11; equipment_machinery->vehicles_spare_parts:10; media_events->furniture_consumer_goods:8
+
+[sector] direct TF-IDF {'accuracy': 0.6838, 'macro_f1': 0.5352} vs derived from encoder activity {'accuracy': 0.6895, 'macro_f1': 0.6073} -> ship derived

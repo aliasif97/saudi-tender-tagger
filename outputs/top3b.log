@@ -1,0 +1,2 @@
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 9881.56it/s]
+{'activity_baseline': 0.798670465337132, 'activity_marbert_6ep': 0.8100664767331434}

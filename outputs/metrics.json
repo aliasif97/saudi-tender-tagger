@@ -3,12 +3,15 @@
   "baseline": {
    "accuracy": 0.6125,
    "macro_f1": 0.3542,
-   "accuracy_novel_titles": 0.6039
+   "accuracy_novel_titles": 0.6039,
+   "top3_accuracy": 0.7987
   },
   "encoder": {
-   "accuracy": 0.6173,
-   "macro_f1": 0.4339,
-   "accuracy_novel_titles": 0.6097
+   "accuracy": 0.6106,
+   "macro_f1": 0.4342,
+   "accuracy_novel_titles": 0.6029,
+   "top3_accuracy": 0.8044,
+   "base_model": "CAMeL-Lab/bert-base-arabic-camelbert-mix"
   },
   "ships": "encoder"
  },
@@ -31,8 +34,8 @@
    "macro_f1": 0.4917
   },
   "encoder": {
-   "accuracy": 0.699,
-   "macro_f1": 0.6124
+   "accuracy": 0.6895,
+   "macro_f1": 0.6073
   }
  },
  "kind_derived": {
@@ -41,10 +44,25 @@
    "macro_f1": 0.8675
   },
   "encoder": {
-   "accuracy": 0.8908,
-   "macro_f1": 0.872
+   "accuracy": 0.8822,
+   "macro_f1": 0.86
   }
  },
+ "activity_marbertv2_6ep_not_shipped": {
+  "accuracy": 0.6173,
+  "macro_f1": 0.4339,
+  "top3_accuracy": 0.8101,
+  "reason": "base model has no stated license"
+ },
+ "sector_direct_tfidf": {
+  "accuracy": 0.6838,
+  "macro_f1": 0.5352
+ },
+ "sector_derived_from_shipped_activity": {
+  "accuracy": 0.6895,
+  "macro_f1": 0.6073
+ },
+ "sector_route": "derived",
  "baseline_direct_sector_and_kind": {
   "sector": {
    "C": 50,

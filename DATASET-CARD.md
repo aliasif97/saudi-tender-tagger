@@ -53,5 +53,12 @@ Recency skew (above). Source skew: the older rows exist only because they were a
 ## License
 CC BY 4.0 for the rows we assembled and labelled. The source text is public government listing data that we do not own; see LICENSE. Remove rows on request from the portal operator.
 
+## Updates
+Weekly refresh adds newly listed tenders under `updates/` (one file per date); `train` and `test` never change. Each tag freezes the repository at that date.
+
+| Date | New rows | Total rows | Tag |
+|---|---|---|---|
+| 2026-10-13 | 119 | 7,135 | v2026.10.13 |
+
 ## ملخص بالعربية
 مجموعة بيانات من 7,016 منافسة حكومية سعودية منشورة علنا على منصة اعتماد (الصفحات العامة للزوار)، تتضمن العنوان والجهة والنشاط حسب تصنيف اعتماد ونوع المنافسة، مع تصنيفين مشتقين (القطاع ونوع الأعمال: توريد أو أعمال أو خدمات). لا تتضمن أسماء المتقدمين أو الفائزين أو قيم الترسية أو بيانات اتصال. الترخيص CC BY 4.0 للتجميع والتصنيف، والنص الأصلي معلومات حكومية عامة.

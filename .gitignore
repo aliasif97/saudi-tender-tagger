@@ -14,3 +14,5 @@ data/tenders_all.csv
 data/tenders_base.csv
 .env
 .DS_Store
+# weekly refresh logs
+logs/

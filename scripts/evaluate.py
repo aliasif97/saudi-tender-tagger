@@ -17,6 +17,7 @@ P = {}
 for lab in ("activity", "ttype"):
     for model in ("baseline", "encoder"):
         P[(lab, model)] = pd.read_csv(f"{O}/pred_{model}_{lab}.csv", dtype=str).set_index("ref")
+T3 = json.load(open(f"{O}/top3.json")); ENC = {l: json.load(open(f"{O}/encoder_{l}_metrics.json")) for l in ("activity", "ttype")}
 for lab in ("activity", "ttype"):
     rows = {}
     for model in ("baseline", "encoder"):
@@ -30,6 +31,7 @@ for lab in ("activity", "ttype"):
         sup = d.true.value_counts()
         w = f1s[sup[f1s.index] >= 5].sort_values().head(5)
         lines.append("  weakest classes (support>=5): " + "; ".join(f"{k} F1={v:.2f} n={sup[k]}" for k, v in w.items()))
+    if lab == "activity": rows["baseline"]["top3_accuracy"] = round(T3["activity_baseline"], 4); rows["encoder"]["top3_accuracy"] = round(ENC["activity"]["top3_accuracy"], 4); rows["encoder"]["base_model"] = ENC["activity"]["base_model"]
     win = max(rows, key=lambda k: (rows[k]["macro_f1"], rows[k]["accuracy"])); rows["ships"] = win; out[lab] = rows; ship[lab] = win
 # derived labels from predicted activity vs truth
 for model in ("baseline", "encoder"):
@@ -40,13 +42,26 @@ for model in ("baseline", "encoder"):
     lines.append(f"[kind rules on predicted activity+type / {model}] {out['kind_derived'][model]}")
     c = Counter((a, b) for a, b in zip(te.sector, ps) if a != b).most_common(5)
     lines.append("  top sector confusions: " + "; ".join(f"{a}->{b}:{n}" for (a, b), n in c))
+# MARBERTv2 6-epoch row (measured, not shipped: no stated license)
+mb = json.load(open(f"{O}/marbert_6ep/encoder_activity_metrics.json"))
+out["activity_marbertv2_6ep_not_shipped"] = {"accuracy": round(mb["accuracy"], 4), "macro_f1": round(mb["macro_f1"], 4), "top3_accuracy": round(T3.get("activity_marbert_6ep", float("nan")), 4), "reason": "base model has no stated license"}
+# sector: direct TF-IDF head vs derived from the shipped activity model
+ship_act = out["activity"]["ships"]
+dsd = P[("activity", ship_act)].loc[te.index]
+derived = m(te.sector, [sector_of(x) for x in dsd.pred])
+bs = pd.read_csv(f"{O}/pred_baseline_sector.csv", dtype=str).set_index("ref").loc[te.index]
+direct = m(bs.true, bs.pred)
+out["sector_direct_tfidf"] = direct; out["sector_derived_from_shipped_activity"] = derived
+out["sector_route"] = "direct" if direct["macro_f1"] > derived["macro_f1"] else "derived"
+ship["sector"] = out["sector_route"]
+lines.append(f"\n[sector] direct TF-IDF {direct} vs derived from {ship_act} activity {derived} -> ship {out['sector_route']}")
 bm = json.load(open(f"{O}/baseline_metrics.json"))
 out["baseline_direct_sector_and_kind"] = {k: bm[k] for k in ("sector", "kind")}
 out["test_n"] = len(te); out["test_novel_title_n"] = int(te.novel.sum())
 json.dump(out, open(f"{O}/metrics.json", "w"), indent=1, ensure_ascii=False)
 open(f"{O}/eval_report.txt", "w").write(json.dumps(out, indent=1, ensure_ascii=False) + "\n" + "\n".join(lines))
 cfg = {"name": "saudi-tender-tagger", "input": "title + ' | ' + agency", "max_length": 128,
-       "heads": {l: ({"type": "encoder", "path": f"{l}_encoder"} if ship[l] == "encoder" else {"type": "tfidf", "path": f"{l}_tfidf"}) for l in ship},
+       "heads": {**{l: ({"type": "encoder", "path": f"{l}_encoder"} if ship[l] == "encoder" else {"type": "tfidf", "path": f"{l}_tfidf"}) for l in ("activity", "ttype")}, **({"sector": {"type": "tfidf", "path": "sector_tfidf"}} if ship["sector"] == "direct" else {})},
        "derived": {"sector": "labels/activity_to_sector.json", "kind": "labels/activity_to_kind.json + rules in scripts/common.py"}}
 json.dump(cfg, open(f"{ROOT}/models/saudi-tender-tagger/config.json", "w"), indent=1)
 print(open(f"{O}/eval_report.txt").read())

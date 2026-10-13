@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Upload the model and the dataset to the Hugging Face Hub. NOT run during the build (no token yet).
 
-  export HF_TOKEN=...           # write token, never commit it
+  hf auth login                 # or export HF_TOKEN=... (write token, never commit it)
   python push_to_hub.py <namespace> [--model-name saudi-tender-tagger] [--dataset-name etimad-tender-titles] [--private] [--dry-run]
 
 Creates <namespace>/<model-name> (model card = README.md, weights, tokenizer, labels, predict.py, scripts)
@@ -17,9 +17,9 @@ model_repo, data_repo = f"{a.namespace}/{a.model_name}", f"{a.namespace}/{a.data
 model_dir = os.path.join(HERE, "models", "saudi-tender-tagger")
 print("model  ->", model_repo, "\ndataset ->", data_repo)
 if a.dry_run: sys.exit(0)
-if not os.environ.get("HF_TOKEN"): sys.exit("Set HF_TOKEN first (write access). Nothing was uploaded.")
 from huggingface_hub import HfApi
-api = HfApi(token=os.environ["HF_TOKEN"])
+api = HfApi(token=os.environ.get("HF_TOKEN"))  # falls back to the token stored by `hf auth login`
+if api.whoami().get("name") is None: sys.exit("Not logged in. Run `hf auth login` or set HF_TOKEN. Nothing was uploaded.")
 api.create_repo(model_repo, repo_type="model", private=a.private, exist_ok=True)
 api.upload_folder(repo_id=model_repo, repo_type="model", folder_path=model_dir)
 for f in ("README.md", "LICENSE", "predict.py"):

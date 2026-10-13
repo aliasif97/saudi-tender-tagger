@@ -50,11 +50,15 @@ def tag(heads, title, agency):
     t0 = time.perf_counter()
     act = heads["activity"].top(text, 3); tt = heads["ttype"].top(text, 1)[0]
     activity = act[0][0]
+    if "sector" in heads:
+        sec = heads["sector"].top(text, 1)[0]; sector = {"label": sec[0], "confidence": round(sec[1], 4), "derived_from": "direct sector classifier"}
+    else:
+        sector = {"label": sector_of(activity), "derived_from": "predicted activity"}
     out = {
         "activity": {"label": activity, "confidence": round(act[0][1], 4),
                      "top3": [{"label": l, "confidence": round(p, 4)} for l, p in act]},
         "procurement_type": {"label": tt[0], "confidence": round(tt[1], 4)},
-        "sector": {"label": sector_of(activity), "derived_from": "predicted activity"},
+        "sector": sector,
         "kind": {"label": kind_of(activity, tt[0], title), "derived_from": "rules on activity, type and title"},
     }
     out["latency_ms"] = round((time.perf_counter() - t0) * 1000, 1)
@@ -72,9 +76,9 @@ def main():
         if a.json or a.file: print(json.dumps({"title": r["title"], "agency": r.get("agency", ""), **res}, ensure_ascii=False))
         else:
             print(f"Title:    {r['title']}\nAgency:   {r.get('agency','')}")
-            print(f"Activity: {res['activity']['label']}  ({res['activity']['confidence']:.2f})")
-            for x in res["activity"]["top3"][1:]: print(f"          also: {x['label']}  ({x['confidence']:.2f})")
+            print("Top-3 activities:")
+            for i, x in enumerate(res["activity"]["top3"], 1): print(f"  {i}. {x['label']}  p={x['confidence']:.3f}")
             print(f"Type:     {res['procurement_type']['label']}  ({res['procurement_type']['confidence']:.2f})")
-            print(f"Sector:   {res['sector']['label']}   Kind: {res['kind']['label']}")
+            sc = res["sector"].get("confidence"); print(f"Sector:   {res['sector']['label']}" + (f"  p={sc:.3f}" if sc else "") + f"   Kind: {res['kind']['label']}")
             print(f"Latency:  {res['latency_ms']} ms per tender (model load {load_s:.1f} s)")
 if __name__ == "__main__": main()
